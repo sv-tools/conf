@@ -1,3 +1,3 @@
-module github.com/sv-tools/go-repo-template
+module github.com/sv-tools/conf
 
 go 1.16

@@ -45,7 +45,7 @@ linters-settings:
     disable:
       - shadow
   gci:
-    local-prefixes: github.com/sv-tools/go-repo-template
+    local-prefixes: github.com/sv-tools/conf
   gocognit:
     min-complexity: 15
   gocyclo:
