@@ -3,9 +3,6 @@ name: "New Release"
 on:
   milestone:
     types: [closed]
-  push:
-    tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
 
 env:
   GO: 1.16
