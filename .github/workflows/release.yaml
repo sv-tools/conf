@@ -38,4 +38,3 @@ jobs:
 
       - name: Push Tag
         run: git push origin --tags
-w
