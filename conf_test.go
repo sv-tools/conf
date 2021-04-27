@@ -359,7 +359,7 @@ func TestGlobalConf(t *testing.T) {
 	require.ElementsMatch(t, []string{"foo", "bar", "xyz", "default"}, conf.Keys())
 }
 
-func testTransform(_, value interface{}, _ conf.Conf) interface{} {
+func testTransform(_ string, value interface{}, _ conf.Conf) interface{} {
 	if v, ok := value.(string); ok && v == "value-to-be-transformed" {
 		return 101
 	}
