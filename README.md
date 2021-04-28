@@ -18,10 +18,16 @@ I will make a hard copy of it if the number of dependencies are increased.
 * The `github.com/stretchr/testify` is used for testing only.
 
 
+## Addons
+
+* [Go Templates Trasformer](https://github.com/sv-tools/conf-transformer-go-template) supports go templates by parsing and applying the templates stored in the configuration manager.
+* [JSON Parser](https://github.com/sv-tools/conf-parser-json) supports parsing a data in JSON format.
+* [YAML Parser](https://github.com/sv-tools/conf-parser-yaml) supports parsing a data in YAML format.
+
 ## Alternatives
 
-* `viper` (https://github.com/spf13/viper) is the most know library, it's very heavy and very reach in defferent features.
-* `koanf` (https://github.com/knadh/koanf) is an attempt to make a better version of the `viper`, but also contains all parsers in same repo, so the list of dependeciies is pretty huge.
+* [viper](https://github.com/spf13/viper) is the most know library, it's very heavy and very reach in defferent features.
+* [koanf](https://github.com/knadh/koanf) is an attempt to make a better version of the `viper`, but also contains all parsers in same repo, so the list of dependeciies is pretty huge.
 
 
 ## License
