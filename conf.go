@@ -164,7 +164,7 @@ func (c *conf) scan(data interface{}, key string) {
 
 	v := reflect.ValueOf(data)
 
-	switch v.Kind() { // nolint: exhaustive
+	switch v.Kind() {
 	case reflect.Map:
 		iter := v.MapRange()
 		for iter.Next() {

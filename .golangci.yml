@@ -7,7 +7,6 @@ linters:
     - bodyclose
     - dupl
     - durationcheck
-    - exhaustive
     - exportloopref
     - gci
     - gocognit
