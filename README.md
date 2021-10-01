@@ -7,7 +7,7 @@
 
 The configuration reader with as few dependencies as possible.
 
-The library provides the base code only and the interfaces. All parsers and readers must be places in the separate repositories.
+The library provides the base code only and the interfaces. All parsers and readers must be created in the separate repositories to avoid unnecessary dependecies.
 
 
 ## Dependecies
@@ -21,12 +21,13 @@ I will make a hard copy of it if the number of dependencies are increased.
 ## Addons
 
 * [Go Templates Trasformer](https://github.com/sv-tools/conf-transformer-go-template) supports go templates by parsing and applying the templates stored in the configuration manager.
-* [JSON Parser](https://github.com/sv-tools/conf-parser-json) supports parsing a data in JSON format.
-* [YAML Parser](https://github.com/sv-tools/conf-parser-yaml) supports parsing a data in YAML format.
+* [JSON Parser](https://github.com/sv-tools/conf-parser-json) reads a data in JSON format.
+* [YAML Parser](https://github.com/sv-tools/conf-parser-yaml) reads a data in YAML format.
+* [Env reader](https://github.com/sv-tools/conf-reader-env) reads the values from environment variables.
 
 ## Alternatives
 
-* [viper](https://github.com/spf13/viper) is the most know library, it's very heavy and very reach in defferent features.
+* [viper](https://github.com/spf13/viper) is the most know library, it's very heavy and very rich in various features.
 * [koanf](https://github.com/knadh/koanf) is an attempt to make a better version of the `viper`, but also contains all parsers in same repo, so the list of dependeciies is pretty huge.
 
 
