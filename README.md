@@ -24,6 +24,7 @@ I will make a hard copy of it if the number of dependencies are increased.
 * [JSON Parser](https://github.com/sv-tools/conf-parser-json) reads a data in JSON format.
 * [YAML Parser](https://github.com/sv-tools/conf-parser-yaml) reads a data in YAML format.
 * [Env reader](https://github.com/sv-tools/conf-reader-env) reads the values from environment variables.
+* [Flags reader](https://github.com/sv-tools/conf-reader-flags) reads the command line flags (using [pflag](https://github.com/spf13/pflag))
 
 ## Alternatives
 
