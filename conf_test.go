@@ -367,7 +367,7 @@ func testTransform(_ string, value interface{}, _ conf.Conf) interface{} {
 	return value
 }
 
-func TestConf_WithTrasformer(t *testing.T) {
+func TestConf_WithTransformer(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New().WithTransformers(testTransform)
@@ -378,7 +378,7 @@ func TestConf_WithTrasformer(t *testing.T) {
 	require.Equal(t, 101, c.Get("bar"))
 }
 
-func TestGlobalConf_WithTrasformer(t *testing.T) {
+func TestGlobalConf_WithTransformer(t *testing.T) {
 	t.Cleanup(func() {
 		conf.Reset()
 	})

@@ -18,7 +18,7 @@ type Conf interface {
 	// WithReaders stores the given readers to load the data in the Load function
 	WithReaders(readers ...Reader) Conf
 	// WithTransformers stores the given transformers to change the output of the Get function.
-	// All trasformers will be applied in the given order.
+	// All transformers will be applied in the given order.
 	WithTransformers(transformers ...Transform) Conf
 
 	// Reset creates an empty storage and clears the old one
@@ -69,7 +69,7 @@ type conf struct {
 	transformers []Transform
 }
 
-// New crates the an instance of Conf interface
+// New crates an instance of Conf interface
 func New() Conf {
 	c := &conf{
 		storage:  &sync.Map{},
@@ -97,7 +97,7 @@ func (c *conf) WithReaders(readers ...Reader) Conf {
 }
 
 // WithTransformers stores the given transformers to change the output of the Get function
-// All trasformers will be applied in the given order.
+// All transformers will be applied in the given order.
 // The alias to work with an instance of the global configuration manager.
 func WithTransformers(transformers ...Transform) Conf {
 	return globalConf.WithTransformers(transformers...)
@@ -123,7 +123,7 @@ func (c *conf) Reset() Conf {
 	)
 	s := (*sync.Map)(old)
 
-	keys := []interface{}{}
+	var keys []interface{}
 	s.Range(func(key, value interface{}) bool {
 		keys = append(keys, key)
 		return true
@@ -184,7 +184,7 @@ func Keys() []string {
 }
 
 func (c *conf) Keys() []string {
-	keys := []string{}
+	var keys []string
 
 	c.storage.Range(func(key, value interface{}) bool {
 		keys = append(keys, key.(string))
