@@ -118,8 +118,8 @@ func Reset() Conf {
 
 func (c *conf) Reset() Conf {
 	old := atomic.SwapPointer(
-		(*unsafe.Pointer)(unsafe.Pointer(&c.storage)), // nolint:gosec
-		unsafe.Pointer(&sync.Map{}),                   // nolint:gosec
+		(*unsafe.Pointer)(unsafe.Pointer(&c.storage)), //nolint:gosec
+		unsafe.Pointer(&sync.Map{}),                   //nolint:gosec
 	)
 	s := (*sync.Map)(old)
 
@@ -304,10 +304,11 @@ func (c *conf) GetInt64(key string) int64 {
 // BoolValues is a global extendable list of the string values that should be converted as true or false
 //
 // Example:
-//     conf.GetSet("flag", "sí")
-//     conf.GetBool("flag") == false
-//     conf.TrueValues["sí"] = true
-//     conf.GetBool("flag") == true
+//
+//	conf.GetSet("flag", "sí")
+//	conf.GetBool("flag") == false
+//	conf.TrueValues["sí"] = true
+//	conf.GetBool("flag") == true
 var BoolValues = map[string]bool{
 	"yes": true,
 	"Yes": true,

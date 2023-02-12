@@ -74,7 +74,7 @@ func NewStreamParser(stream io.Reader) Parser {
 
 // NewFileParser creates an instance of the Parser and opens the given file
 func NewFileParser(filename string) (Parser, error) {
-	f, err := os.Open(filename) // nolint:gosec
+	f, err := os.Open(filename) //nolint:gosec
 	if err != nil {
 		return nil, err
 	}

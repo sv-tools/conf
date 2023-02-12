@@ -1,9 +1,0 @@
-project_name: conf
-
-release:
-  github:
-    owner: sv-tools
-    name: conf
-
-builds:
-  - skip: true
