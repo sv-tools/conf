@@ -173,8 +173,8 @@ func TestConf_GetBool(t *testing.T) {
 		"sí":    false,
 		"34":    false,
 		34:      true,
-		1.25:    false,
-		1.0:     false,
+		1.25:    true,
+		1.0:     true,
 		nil:     false,
 	}
 	for rawValue, expectedValue := range data {
