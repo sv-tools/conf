@@ -230,8 +230,11 @@ func TestConf_GetInt(t *testing.T) {
 		c.Set("flag", rawValue)
 
 		require.Equal(t, expectedValue, c.GetInt("flag"), "%T: %v", rawValue, rawValue)
+		//nolint:gosec // integer overflow conversion int -> int8
 		require.Equal(t, int8(expectedValue), c.GetInt8("flag"), "%T: %v", rawValue, rawValue)
+		//nolint:gosec // integer overflow conversion int -> int16
 		require.Equal(t, int16(expectedValue), c.GetInt16("flag"), "%T: %v", rawValue, rawValue)
+		//nolint:gosec // integer overflow conversion int -> int32
 		require.Equal(t, int32(expectedValue), c.GetInt32("flag"), "%T: %v", rawValue, rawValue)
 		require.Equal(t, int64(expectedValue), c.GetInt64("flag"), "%T: %v", rawValue, rawValue)
 	}
