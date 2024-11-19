@@ -12,10 +12,8 @@ The library provides the base code only and the interfaces. All parsers and read
 
 ## Dependencies
 
-* The [spf13/cast](https://github.com/spf13/cast) has been added as dependency to avoid the code duplication.
-This library has only one dependency of [stretchr/testify](https://github.com/stretchr/testify).
-I will make a hard copy of it if the number of dependencies are increased.
-* The [stretchr/testify](https://github.com/stretchr/testify) is used for testing only.
+* The [spf13/cast](https://github.com/spf13/cast) has been added as dependency to avoid the code duplication. I will make a hard copy of it if the number of dependencies are increased.
+* The [stretchr/testify](https://github.com/stretchr/testify) is used in tests only.
 
 ## Addons
 
