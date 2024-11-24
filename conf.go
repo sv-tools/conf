@@ -164,7 +164,7 @@ func (c *conf) scan(data interface{}, key string) {
 
 	v := reflect.ValueOf(data)
 
-	switch v.Kind() {
+	switch v.Kind() { //nolint:exhaustive // We don't need to check all types
 	case reflect.Map:
 		iter := v.MapRange()
 		for iter.Next() {
@@ -174,6 +174,7 @@ func (c *conf) scan(data interface{}, key string) {
 		for i := 0; i < v.Len(); i++ {
 			c.scan(v.Index(i).Interface(), key+strconv.Itoa(i))
 		}
+	default:
 	}
 }
 
