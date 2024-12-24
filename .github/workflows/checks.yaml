@@ -17,6 +17,8 @@ concurrency:
 env:
   GO: "1.23"
 
+permissions: read-all
+
 jobs:
   UnitTests:
     runs-on: ubuntu-latest
