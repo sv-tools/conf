@@ -64,7 +64,7 @@ func TestConf(t *testing.T) {
 		t.Parallel()
 
 		require.EqualError(t,
-			conf.New().WithReaders(newReader(t, "", nil, errFake)).Load(context.Background()),
+			conf.New().WithReaders(newReader(t, "", nil, errFake)).Load(t.Context()),
 			"fake error",
 		)
 	})
@@ -78,7 +78,7 @@ func TestConf(t *testing.T) {
 			newReader(t, "data3", data3, nil),
 			newReader(t, "data4", data4, nil),
 		)
-		require.NoError(t, c.Load(context.Background()))
+		require.NoError(t, c.Load(t.Context()))
 
 		require.Nil(t, c.Get("no key"))
 		require.Equal(t, data4, c.Get("data4"))
@@ -108,7 +108,7 @@ func TestConf(t *testing.T) {
 		c := conf.New().WithReaders(
 			newReader(t, "", data4, nil),
 		)
-		require.NoError(t, c.Load(context.Background()))
+		require.NoError(t, c.Load(t.Context()))
 		for i, expectedValue := range data4 {
 			require.Equal(t, expectedValue, c.Get(strconv.Itoa(i)))
 		}
@@ -120,7 +120,7 @@ func TestConf(t *testing.T) {
 		c := conf.New().WithReaders(
 			newReader(t, "", data3, nil),
 		)
-		require.NoError(t, c.Load(context.Background()))
+		require.NoError(t, c.Load(t.Context()))
 		require.Empty(t, c.Keys())
 	})
 
@@ -259,8 +259,10 @@ func TestConf_GetFloat(t *testing.T) {
 	for rawValue, expectedValue := range data {
 		c.Set("flag", rawValue)
 
-		require.Equal(t, expectedValue, c.GetFloat64("flag"), "%T: %v", rawValue, rawValue)
-		require.Equal(t, float32(expectedValue), c.GetFloat32("flag"), "%T: %v", rawValue, rawValue)
+		require.Equal(t, expectedValue, c.GetFloat64("flag"), //nolint:testifylint
+			"%T: %v", rawValue, rawValue)
+		require.Equal(t, float32(expectedValue), c.GetFloat32("flag"), //nolint:testifylint
+			"%T: %v", rawValue, rawValue)
 	}
 }
 
@@ -331,7 +333,7 @@ func TestGlobalConf(t *testing.T) {
 	conf.WithReaders(newReader(t, "", map[string]interface{}{
 		"foo": 42,
 	}, nil))
-	require.NoError(t, conf.Load(context.Background()))
+	require.NoError(t, conf.Load(t.Context()))
 	require.Equal(t, 42, conf.Get("foo"))
 
 	require.Nil(t, conf.Get("bar"))
@@ -353,8 +355,8 @@ func TestGlobalConf(t *testing.T) {
 	require.Equal(t, int16(42), conf.GetInt16("foo"))
 	require.Equal(t, int32(42), conf.GetInt32("foo"))
 	require.Equal(t, int64(42), conf.GetInt64("foo"))
-	require.Equal(t, float32(42), conf.GetFloat32("foo"))
-	require.Equal(t, float64(42), conf.GetFloat64("foo"))
+	require.Equal(t, float32(42), conf.GetFloat32("foo")) //nolint:testifylint
+	require.Equal(t, float64(42), conf.GetFloat64("foo")) //nolint:testifylint
 	require.Equal(t, "42", conf.GetString("foo"))
 	require.Equal(t, time.Unix(42, 0), conf.GetTime("foo"))
 	require.Equal(t, time.Duration(42), conf.GetDuration("foo"))

@@ -35,7 +35,7 @@ func TestStreamParser(t *testing.T) {
 
 	reader := bytes.NewReader([]byte(`foo:1;bar:2`))
 	c := conf.New().WithReaders(conf.NewStreamParser(reader).WithParser(testParseFunc).WithPrefix("pr"))
-	require.NoError(t, c.Load(context.Background()))
+	require.NoError(t, c.Load(t.Context()))
 	require.Equal(t, 1, c.GetInt("pr.foo"))
 	require.Equal(t, 2, c.GetInt("pr.bar"))
 }
@@ -45,14 +45,14 @@ func TestStreamParser_ErrNoParser(t *testing.T) {
 
 	reader := bytes.NewReader([]byte(`foo:1;bar:2`))
 	c := conf.New().WithReaders(conf.NewStreamParser(reader))
-	require.ErrorIs(t, c.Load(context.Background()), conf.ErrNoParser)
+	require.ErrorIs(t, c.Load(t.Context()), conf.ErrNoParser)
 }
 
 func TestStreamParser_ErrNoStream(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New().WithReaders(conf.NewStreamParser(nil).WithParser(testParseFunc))
-	require.ErrorIs(t, c.Load(context.Background()), conf.ErrNoStream)
+	require.ErrorIs(t, c.Load(t.Context()), conf.ErrNoStream)
 }
 
 func TestStreamParser_errFake(t *testing.T) {
@@ -60,7 +60,7 @@ func TestStreamParser_errFake(t *testing.T) {
 
 	reader := bytes.NewReader([]byte(`foo:1;bar:2`))
 	c := conf.New().WithReaders(conf.NewStreamParser(reader).WithParser(testParseFuncError))
-	require.ErrorIs(t, c.Load(context.Background()), errFake)
+	require.ErrorIs(t, c.Load(t.Context()), errFake)
 }
 
 func TestFileParser(t *testing.T) {
@@ -70,7 +70,7 @@ func TestFileParser(t *testing.T) {
 	require.NoError(t, err)
 
 	c := conf.New().WithReaders(parser.WithParser(testParseFunc).WithPrefix("pr"))
-	require.NoError(t, c.Load(context.Background()))
+	require.NoError(t, c.Load(t.Context()))
 	require.Equal(t, 1, c.GetInt("pr.foo"))
 	require.Equal(t, 2, c.GetInt("pr.bar"))
 }

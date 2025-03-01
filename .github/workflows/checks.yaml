@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GO: "1.23"
+  GO: "1.24"
 
 permissions: read-all
 
