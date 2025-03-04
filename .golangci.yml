@@ -1,32 +1,61 @@
-run:
-  skip-dirs-use-default: true
-
 linters:
   enable: # keep in ascending order
+    - asasalint
     - asciicheck
     - bodyclose
+    - contextcheck
     - copyloopvar
     - dupl
     - durationcheck
     - err113
+    - errcheck
+    - errorlint
     - exhaustive
+    - exptostd
+    - fatcontext
     - gci
+    - gocheckcompilerdirectives
+    - gochecksumtype
+    - gocognit
     - goconst
     - gocritic
+    - gocyclo
     - gofumpt
     - goprintffuncname
     - gosec
+    - gosimple
+    - govet
+    - iface
+    - inamedparam
+    - ineffassign
+    - intrange
     - lll
+    - mirror
     - misspell
+    - musttag
     - nestif
+    - nilerr
     - noctx
     - nolintlint
+    - perfsprint
     - prealloc
     - predeclared
+    - reassign
+    - recvcheck
+    - sloglint
+    - staticcheck
+    - tagliatelle
+    - testableexamples
+    - testifylint
+    - testpackage
     - thelper
+    - tparallel
     - unconvert
     - unparam
     - unused
+    - usestdlibvars
+    - usetesting
+    - wastedassign
     - whitespace
 
 linters-settings:
@@ -34,8 +63,6 @@ linters-settings:
     threshold: 100
   misspell:
     locale: US
-  golint:
-    min-confidence: 0
   govet:
     enable-all: true
     disable:
@@ -57,8 +84,6 @@ linters-settings:
   goconst:
     min-len: 3
     min-occurrences: 3
-  maligned:
-    suggest-new: true
   prealloc:
     for-loops: true
   gocritic:
