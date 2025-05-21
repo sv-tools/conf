@@ -14,11 +14,11 @@ import (
 
 type testReader struct {
 	err    error
-	data   interface{}
+	data   any
 	prefix string
 }
 
-func (t *testReader) Read(_ context.Context) (interface{}, error) {
+func (t *testReader) Read(_ context.Context) (any, error) {
 	return t.data, t.err
 }
 
@@ -26,7 +26,7 @@ func (t *testReader) Prefix() string {
 	return t.prefix
 }
 
-func newReader(tb testing.TB, prefix string, data interface{}, err error) conf.Reader {
+func newReader(tb testing.TB, prefix string, data any, err error) conf.Reader {
 	tb.Helper()
 
 	return &testReader{prefix: prefix, data: data, err: err}
@@ -37,12 +37,12 @@ var errFake = errors.New("fake error")
 func TestConf(t *testing.T) {
 	t.Parallel()
 
-	data1 := map[string]interface{}{
+	data1 := map[string]any{
 		"foo": "bar",
 		"baz": 42,
 		"xyz": []int{1, 2, 3},
-		"a": map[string]interface{}{
-			"b": []map[string]interface{}{
+		"a": map[string]any{
+			"b": []map[string]any{
 				{
 					"c": 1,
 				},
@@ -55,7 +55,7 @@ func TestConf(t *testing.T) {
 	}
 	data2 := "fake data"
 	data3 := 34
-	data4 := []interface{}{
+	data4 := []any{
 		1,
 		"2",
 	}
@@ -157,7 +157,7 @@ func TestConf_GetBool(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New()
-	data := map[interface{}]bool{
+	data := map[any]bool{
 		"0":     false,
 		"1":     true,
 		0:       false,
@@ -192,7 +192,7 @@ func TestConf_GetString(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New()
-	data := map[interface{}]string{
+	data := map[any]string{
 		"0":   "0",
 		"1":   "1",
 		0:     "0",
@@ -214,7 +214,7 @@ func TestConf_GetInt(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New()
-	data := map[interface{}]int{
+	data := map[any]int{
 		"0":   0,
 		"-1":  -1,
 		0:     0,
@@ -244,7 +244,7 @@ func TestConf_GetFloat(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New()
-	data := map[interface{}]float64{
+	data := map[any]float64{
 		"0.1":  0.1,
 		"-1.4": -1.4,
 		0:      0,
@@ -273,7 +273,7 @@ func TestConf_GetTime(t *testing.T) {
 	require.NoError(t, err)
 
 	c := conf.New()
-	data := map[interface{}]time.Time{
+	data := map[any]time.Time{
 		"0.1":                  {},
 		"-1.4":                 {},
 		0:                      time.Unix(0, 0),
@@ -300,7 +300,7 @@ func TestConf_GetDuration(t *testing.T) {
 	t.Parallel()
 
 	c := conf.New()
-	data := map[interface{}]time.Duration{
+	data := map[any]time.Duration{
 		"0.1":                  0,
 		"-1.4":                 -1,
 		0:                      0,
@@ -330,7 +330,7 @@ func TestGlobalConf(t *testing.T) {
 	})
 
 	require.Nil(t, conf.Get("foo"))
-	conf.WithReaders(newReader(t, "", map[string]interface{}{
+	conf.WithReaders(newReader(t, "", map[string]any{
 		"foo": 42,
 	}, nil))
 	require.NoError(t, conf.Load(t.Context()))
@@ -364,7 +364,7 @@ func TestGlobalConf(t *testing.T) {
 	require.ElementsMatch(t, []string{"foo", "bar", "xyz", "default"}, conf.Keys())
 }
 
-func testTransform(_ string, value interface{}, _ conf.Conf) interface{} {
+func testTransform(_ string, value any, _ conf.Conf) any {
 	if v, ok := value.(string); ok && v == "value-to-be-transformed" {
 		return 101
 	}

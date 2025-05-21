@@ -8,7 +8,7 @@ import (
 )
 
 // ParseFunc is a type for the parsing function
-type ParseFunc func(ctx context.Context, r io.Reader) (interface{}, error)
+type ParseFunc func(ctx context.Context, r io.Reader) (any, error)
 
 // Parser is an extension for the Reader interface.
 type Parser interface {
@@ -35,7 +35,7 @@ var (
 	ErrNoStream = errors.New("no data stream")
 )
 
-func (p *parser) Read(ctx context.Context) (interface{}, error) {
+func (p *parser) Read(ctx context.Context) (any, error) {
 	if p.stream == nil {
 		return nil, ErrNoStream
 	}

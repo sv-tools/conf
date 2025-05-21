@@ -30,13 +30,13 @@ type Conf interface {
 	// Keys returns the list of the stored keys
 	Keys() []string
 	// SetDefault sets a default value for a key
-	SetDefault(key string, value interface{}) Conf
+	SetDefault(key string, value any) Conf
 	// Set overrides the current value of a given key.
-	Set(key string, value interface{}) Conf
+	Set(key string, value any) Conf
 	// Get returns a value for a given key if it is set or default value
 	// Returns `nil` if key not found
 
-	Get(key string) interface{}
+	Get(key string) any
 	// GetString casts a value for a given key to String
 	GetString(key string) string
 	// GetInt casts a value for a given key to Int
@@ -123,8 +123,8 @@ func (c *conf) Reset() Conf {
 	)
 	s := (*sync.Map)(old)
 
-	var keys []interface{}
-	s.Range(func(key, value interface{}) bool {
+	var keys []any
+	s.Range(func(key, value any) bool {
 		keys = append(keys, key)
 		return true
 	})
@@ -156,7 +156,7 @@ func (c *conf) Load(ctx context.Context) error {
 	return nil
 }
 
-func (c *conf) scan(data interface{}, key string) {
+func (c *conf) scan(data any, key string) {
 	if key != "" {
 		c.storage.Store(key, data)
 		key += "."
@@ -187,12 +187,12 @@ func Keys() []string {
 func (c *conf) Keys() []string {
 	var keys []string
 
-	c.storage.Range(func(key, value interface{}) bool {
+	c.storage.Range(func(key, value any) bool {
 		keys = append(keys, key.(string))
 		return true
 	})
 
-	c.defaults.Range(func(key, value interface{}) bool {
+	c.defaults.Range(func(key, value any) bool {
 		keys = append(keys, key.(string))
 		return true
 	})
@@ -202,22 +202,22 @@ func (c *conf) Keys() []string {
 
 // SetDefault sets a default value for a key
 // The alias to work with an instance of the global configuration manager.
-func SetDefault(key string, value interface{}) Conf {
+func SetDefault(key string, value any) Conf {
 	return globalConf.SetDefault(key, value)
 }
 
-func (c *conf) SetDefault(key string, value interface{}) Conf {
+func (c *conf) SetDefault(key string, value any) Conf {
 	c.defaults.Store(key, value)
 	return c
 }
 
 // Set overrides the current value of a given key.
 // The alias to work with an instance of the global configuration manager.
-func Set(key string, value interface{}) Conf {
+func Set(key string, value any) Conf {
 	return globalConf.Set(key, value)
 }
 
-func (c *conf) Set(key string, value interface{}) Conf {
+func (c *conf) Set(key string, value any) Conf {
 	c.storage.Store(key, value)
 	return c
 }
@@ -225,11 +225,11 @@ func (c *conf) Set(key string, value interface{}) Conf {
 // Get returns a value for a given key if it is set or default value
 // Returns `nil` if key not found
 // The alias to work with an instance of the global configuration manager.
-func Get(key string) interface{} {
+func Get(key string) any {
 	return globalConf.Get(key)
 }
 
-func (c *conf) Get(key string) interface{} {
+func (c *conf) Get(key string) any {
 	value, ok := c.storage.Load(key)
 	if !ok {
 		value, _ = c.defaults.Load(key)
