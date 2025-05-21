@@ -7,8 +7,12 @@
 
 The configuration reader with as few dependencies as possible.
 
-The library provides the base code only and the interfaces. All parsers and readers must be created in the separate repositories to avoid unnecessary dependencies.
+The library provides the base code and the interfaces only.
+All parsers and readers must be created in the separate repositories to avoid unnecessary dependencies.
 
+```shell
+go get github.com/sv-tools/conf
+```
 
 ## Dependencies
 
