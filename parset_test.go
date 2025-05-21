@@ -79,6 +79,6 @@ func TestFileParser_FileNotFound(t *testing.T) {
 	t.Parallel()
 
 	parser, err := conf.NewFileParser(`testdata/fake.txt`)
-	require.EqualError(t, err, "open testdata/fake.txt: no such file or directory")
+	require.ErrorContains(t, err, "open testdata/fake.txt: no such file or directory")
 	require.Nil(t, parser)
 }
