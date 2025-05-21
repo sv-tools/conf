@@ -12,7 +12,7 @@ import (
 	"github.com/sv-tools/conf"
 )
 
-func testParseFunc(_ context.Context, r io.Reader) (interface{}, error) {
+func testParseFunc(_ context.Context, r io.Reader) (any, error) {
 	data, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func testParseFunc(_ context.Context, r io.Reader) (interface{}, error) {
 	return res, nil
 }
 
-func testParseFuncError(_ context.Context, _ io.Reader) (interface{}, error) {
+func testParseFuncError(_ context.Context, _ io.Reader) (any, error) {
 	return nil, errFake
 }
 
