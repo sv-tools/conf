@@ -63,7 +63,7 @@ func TestConf(t *testing.T) {
 	t.Run("error", func(t *testing.T) {
 		t.Parallel()
 
-		require.EqualError(t,
+		require.ErrorContains(t,
 			conf.New().WithReaders(newReader(t, "", nil, errFake)).Load(t.Context()),
 			"fake error",
 		)

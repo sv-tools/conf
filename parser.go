@@ -3,6 +3,7 @@ package conf
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 )
@@ -45,11 +46,13 @@ func (p *parser) Read(ctx context.Context) (any, error) {
 
 	data, err := p.parser(ctx, p.stream)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("parser %T failed: %w", p.parser, err)
 	}
 
 	if v, ok := p.stream.(io.Closer); ok {
-		return data, v.Close()
+		if err := v.Close(); err != nil {
+			return nil, fmt.Errorf("failed to close stream: %w", err)
+		}
 	}
 
 	return data, nil
@@ -76,7 +79,7 @@ func NewStreamParser(stream io.Reader) Parser {
 func NewFileParser(filename string) (Parser, error) {
 	f, err := os.Open(filename) //nolint:gosec
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open file: %w", err)
 	}
 
 	return NewStreamParser(f), nil

@@ -3,6 +3,7 @@ package conf
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"strconv"
 	"sync"
@@ -147,7 +148,7 @@ func (c *conf) Load(ctx context.Context) error {
 	for _, reader := range c.readers {
 		data, err := reader.Read(ctx)
 		if err != nil {
-			return err
+			return fmt.Errorf("failed to read data by reader %T: %w", reader, err)
 		}
 
 		c.scan(data, reader.Prefix())
